@@ -10,5 +10,3 @@ dependencies:
     - loguru
     - httpx
     - just-agents>=0.0.7
-    - dotenv
-    - starlette
