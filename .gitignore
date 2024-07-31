@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Keys
+groq_keys.txt
+
 # C extensions
 *.so
 
