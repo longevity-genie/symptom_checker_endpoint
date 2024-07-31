@@ -49,7 +49,7 @@ async def chat_completions(request: dict):
         loguru.logger.debug(request)
         curent_llm: dict = {"model": request["model"], "temperature": request.get("temperature", 0)}
         if request["model"].startswith("groq/"):
-            curent_llm["key_getter"] = RotateKeys("../groq_keys.txt")
+            curent_llm["key_getter"] = RotateKeys("./groq_keys.txt")
 
         prompt_path = "data"
 
