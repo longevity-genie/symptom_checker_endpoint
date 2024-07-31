@@ -1,4 +1,4 @@
-name: longevity_gpts
+name: symptom_checker_api
 channels:
   - conda-forge
   - defaults
