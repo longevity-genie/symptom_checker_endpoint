@@ -1,0 +1,14 @@
+name: longevity_gpts
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip:
+    - fastapi
+    - uvicorn
+    - loguru
+    - httpx
+    - just-agents>=0.0.7
+    - dotenv
+    - starlette
