@@ -52,6 +52,7 @@ async def chat_completions(request: dict):
             curent_llm["key_getter"] = RotateKeys("./groq_keys.txt")
 
         prompt_path = "data"
+        tools = None
 
         if request["model"].startswith("groq/llama-3.1"):
             prompt_path = Path(prompt_path, "groq_lama3_prompt.txt")
@@ -79,7 +80,8 @@ async def chat_completions(request: dict):
 
 
         session: LLMSession = LLMSession(
-            llm_options=curent_llm
+            llm_options=curent_llm,
+            tools = tools
         )
         if request["messages"]:
             if request.get("stream") and str(request.get("stream")).lower() != "false":
