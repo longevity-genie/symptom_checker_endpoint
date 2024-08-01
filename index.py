@@ -31,18 +31,6 @@ app.add_middleware(
 async def default():
     return "This is default page for Symptom Checker API endpoint."
 
-
-def ollama_message_wraper(request: dict):
-    for message in request["messages"]:
-        if message["role"] == "user":
-            content = message["content"]
-            if type(content) is list:
-                if len(content) > 0:
-                    if type(content[0]) is dict:
-                        if content[0].get("type", "") == "text":
-                            if type(content[0].get("text", None)) is str:
-                                message["content"] = content[0]["text"]
-
 @app.post("/symptom_checker/chat/completions")
 async def chat_completions(request: dict):
     try:
@@ -58,18 +46,6 @@ async def chat_completions(request: dict):
             prompt_path = Path(prompt_path, "groq_lama3_prompt.txt")
         if request["model"].startswith("gpt-4o"):
             prompt_path = Path(prompt_path, "gpt4o_prompt.txt")
-        if request["model"].startswith("ollama/phi3"):
-            prompt_path = Path(prompt_path, "phi3_prompt.txt")
-            ollama_message_wraper(request)
-        if "qwen2" in request["model"].lower():
-            prompt_path = Path(prompt_path, "ollama_qwen2_72B_instruct_prompt.txt")
-            curent_llm = {'model': 'Qwen2-72B-Instruct',
-                        'model_server': 'http://0.0.0.0:11434/v1',
-                        'api_key': "No_key",
-                        'keep_alive': -1,
-                        'generate_cfg': {"max_input_tokens": 14000}}
-            # request["stream"] = "False"
-            ollama_message_wraper(request)
 
         if prompt_path:
             with open(prompt_path) as f:
